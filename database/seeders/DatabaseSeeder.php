@@ -22,7 +22,9 @@ class DatabaseSeeder extends Seeder
             MaritalStatusSeeder::class,
             JobSeeder::class,
             ServiceSeeder::class,
-            PaymentSeeder::class
+            PaymentSeeder::class,
+            ClinicRateSeeder::class,
+            MedicineSeeder::class,
         ]);
     }
 }

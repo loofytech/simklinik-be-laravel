@@ -109,7 +109,7 @@ class RegistrationController extends Controller
             $patient->save();
 
             DB::commit();
-            return (object) $patient;
+            return $patient;
         } catch (\Exception $e) {
             DB::rollBack();
             return response()->json(['message' => $e->getMessage()], 400);
@@ -143,7 +143,7 @@ class RegistrationController extends Controller
             $patient->save();
 
             DB::commit();
-            return (object) $patient;
+            return $patient;
         } catch (\Exception $e) {
             DB::rollBack();
             return response()->json(['message' => $e->getMessage()], 400);

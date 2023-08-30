@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\GeneralActionController;
+use App\Http\Controllers\GeneralInspectionController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\ScreeningController;
 use App\Http\Controllers\UserController;
@@ -23,4 +25,12 @@ Route::group(['prefix' => 'registration'], function() {
 Route::group(['prefix' => 'screening'], function() {
     Route::get('', [ScreeningController::class, 'index']);
     Route::put('', [ScreeningController::class, 'moveAction']);
+});
+
+Route::group(['prefix' => 'inspection'], function() {
+    Route::put('', [GeneralInspectionController::class, 'update']);
+});
+
+Route::group(['prefix' => 'action'], function() {
+    Route::put('', [GeneralActionController::class, 'update']);
 });
