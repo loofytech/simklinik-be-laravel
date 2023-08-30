@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('responsible_address')->nullable();
             $table->string('responsible_relation')->nullable();
             $table->boolean('is_ready_screening')->default(0);
+            $table->boolean('is_complete_registration')->default(0);
             $table->timestamps();
 
             $table->foreign('patient_id')->references('id')->on('patients')->onUpdate('cascade')->onDelete('cascade');

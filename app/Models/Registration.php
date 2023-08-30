@@ -16,4 +16,12 @@ class Registration extends Model
     public function screening() {
         return $this->hasOne(Screening::class, 'id');
     }
+
+    public function actions() {
+        return $this->hasMany(GeneralAction::class, 'id');
+    }
+
+    public function recipes() {
+        return $this->hasMany(GeneralRecipe::class, 'id');
+    }
 }

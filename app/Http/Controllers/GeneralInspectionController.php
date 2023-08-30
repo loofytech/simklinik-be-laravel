@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\DB;
 
 class GeneralInspectionController extends Controller
 {
+    public function index(Request $request) {
+        $p = GeneralInspection::where('registration_id', $request->registration_id)->first();
+        return response()->json(['data' => $p]);
+    }
+
     public function update(Request $request) {
         try {
             DB::beginTransaction();

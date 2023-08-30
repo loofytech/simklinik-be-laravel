@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\GeneralActionController;
 use App\Http\Controllers\GeneralInspectionController;
+use App\Http\Controllers\GeneralRecipeController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\ScreeningController;
 use App\Http\Controllers\UserController;
@@ -28,9 +29,16 @@ Route::group(['prefix' => 'screening'], function() {
 });
 
 Route::group(['prefix' => 'inspection'], function() {
+    Route::post('', [GeneralInspectionController::class, 'index']);
     Route::put('', [GeneralInspectionController::class, 'update']);
 });
 
 Route::group(['prefix' => 'action'], function() {
+    Route::post('', [GeneralActionController::class, 'index']);
     Route::put('', [GeneralActionController::class, 'update']);
+});
+
+Route::group(['prefix' => 'recipe'], function() {
+    Route::post('', [GeneralRecipeController::class, 'index']);
+    Route::put('', [GeneralRecipeController::class, 'update']);
 });

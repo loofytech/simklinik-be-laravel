@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\DB;
 
 class GeneralActionController extends Controller
 {
+    public function index(Request $request) {
+        $p = GeneralAction::where('registration_id', $request->registration_id)->get();
+        return response()->json(['data' => $p]);
+    }
+
     public function update(Request $request) {
         try {
             DB::beginTransaction();
@@ -24,7 +29,7 @@ class GeneralActionController extends Controller
 
                 $query = new GeneralAction();
                 $query->registration_id = $request->registration_id;
-                $query->clinic_rate_id = $value['clinic_rate_id'];
+                $query->clinic_rate_id = $q->id;
                 $query->quantity = $value['quantity'];
                 $query->nakes_first = $value['nakes_first'];
                 $query->nakes_second = $value['nakes_second'];
