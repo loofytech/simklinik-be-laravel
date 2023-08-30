@@ -18,7 +18,7 @@ class ScreeningController extends Controller
         try {
             DB::beginTransaction();
 
-            $screening = Screening::find($request->screening_id);
+            $screening = Screening::where('registration_id', $request->registration_id)->first();
             if (!$screening) throw new \Exception('Error screening not found');
 
             $screening->body_weight = $request->body_weight;
