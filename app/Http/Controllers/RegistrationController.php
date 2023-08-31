@@ -11,9 +11,11 @@ use Illuminate\Support\Facades\DB;
 
 class RegistrationController extends Controller
 {
-    public function index() {
-        $data = Registration::whereDate('created_at', Carbon::today())->where('is_ready_screening', 0)->get();
-        return response()->json(['message' => 'success', 'data' => $data]);
+    public function index(Request $request) {
+        $data = Registration::with('patient', 'doctor', 'service', 'payment')->whereDate('created_at', Carbon::today())->where('is_ready_screening', 0)->paginate(10);
+        if ($request->page > $data->lastPage()) abort(404, 'Page not found');
+
+        return response()->json($data);
     }
 
     public function store(Request $request) {

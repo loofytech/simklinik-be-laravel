@@ -5,6 +5,7 @@ use App\Http\Controllers\GeneralInspectionController;
 use App\Http\Controllers\GeneralRecipeController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\ScreeningController;
+use App\Http\Controllers\SelectController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -12,6 +13,16 @@ use Illuminate\Support\Facades\Route;
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
+
+Route::group(['prefix' => 'select'], function() {
+    Route::get('religion', [SelectController::class, 'getReligion']);
+    Route::get('ethnic', [SelectController::class, 'getEthnic']);
+    Route::get('marital-status', [SelectController::class, 'getMaritalStatus']);
+    Route::get('job', [SelectController::class, 'getJob']);
+    Route::get('education', [SelectController::class, 'getEducation']);
+    Route::get('service', [SelectController::class, 'getService']);
+    Route::get('doctor', [SelectController::class, 'getDoctor']);
+});
 
 Route::group(['prefix' => 'user'], function() {
     Route::post('', [UserController::class, 'store']);
