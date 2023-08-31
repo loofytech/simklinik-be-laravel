@@ -19,6 +19,7 @@ class RegistrationController extends Controller
     }
 
     public function store(Request $request) {
+        // return response()->json(['message' => $request->medical_record ? true : false], 400);
         try {
             DB::beginTransaction();
 
@@ -27,6 +28,7 @@ class RegistrationController extends Controller
             else $patientData = $this->storePatient($request->all());
 
             if (!$patientData) throw new \Exception('Error storing patient data');
+            // return response()->json(['message' => $patientData], 400);
 
             $register = new Registration();
             $register->service_id = $request->service_id;
@@ -97,12 +99,12 @@ class RegistrationController extends Controller
             $patient->patient_gender = $data['patient_gender'];
             $patient->birth_place = $data['birth_place'];
             $patient->birth_date = $data['birth_date'];
-            $patient->address = $data['address'];
+            $patient->address = $data['patient_address'];
             $patient->province = $data['province'];
             $patient->regency = $data['regency'];
             $patient->district = $data['district'];
             $patient->subdistrict = $data['subdistrict'];
-            $patient->blood_type = $data['blood_type'];
+            // $patient->blood_type = $data['blood_type'];
             $patient->religion = $data['religion'];
             $patient->ethnic = $data['ethnic'];
             $patient->marital_status = $data['marital_status'];
@@ -111,7 +113,7 @@ class RegistrationController extends Controller
             $patient->save();
 
             DB::commit();
-            return $patient;
+            return (object) $patient;
         } catch (\Exception $e) {
             DB::rollBack();
             return response()->json(['message' => $e->getMessage()], 400);
@@ -131,12 +133,12 @@ class RegistrationController extends Controller
             $patient->patient_gender = $data['patient_gender'];
             $patient->birth_place = $data['birth_place'];
             $patient->birth_date = $data['birth_date'];
-            $patient->address = $data['address'];
+            $patient->address = $data['patient_address'];
             $patient->province = $data['province'];
             $patient->regency = $data['regency'];
             $patient->district = $data['district'];
             $patient->subdistrict = $data['subdistrict'];
-            $patient->blood_type = $data['blood_type'];
+            // $patient->blood_type = $data['blood_type'];
             $patient->religion = $data['religion'];
             $patient->ethnic = $data['ethnic'];
             $patient->marital_status = $data['marital_status'];
@@ -145,7 +147,7 @@ class RegistrationController extends Controller
             $patient->save();
 
             DB::commit();
-            return $patient;
+            return (object) $patient;
         } catch (\Exception $e) {
             DB::rollBack();
             return response()->json(['message' => $e->getMessage()], 400);
