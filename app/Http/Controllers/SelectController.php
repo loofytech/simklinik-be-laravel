@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DoctorSchedule;
 use App\Models\Education;
 use App\Models\Ethnic;
 use App\Models\Job;
@@ -48,5 +49,8 @@ class SelectController extends Controller
         return response()->json(['message' => 'success', 'data' => $req]);
     }
 
-    public function getDoctorByServiceId(Request $request, $doctorId) {}
+    public function getDoctorByServiceId(Request $request, $serviceId) {
+        $req = DoctorSchedule::with('user')->where('service_id', $serviceId)->get();
+        return response()->json(['data' => $req]);
+    }
 }

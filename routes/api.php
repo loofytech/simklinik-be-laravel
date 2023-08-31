@@ -22,6 +22,7 @@ Route::group(['prefix' => 'select'], function() {
     Route::get('education', [SelectController::class, 'getEducation']);
     Route::get('service', [SelectController::class, 'getService']);
     Route::get('doctor', [SelectController::class, 'getDoctor']);
+    Route::get('doctor/{serviceId}', [SelectController::class, 'getDoctorByServiceId']);
 });
 
 Route::group(['prefix' => 'user'], function() {
