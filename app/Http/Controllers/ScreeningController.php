@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Patient;
 use App\Models\Screening;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -10,15 +11,20 @@ use Illuminate\Support\Facades\DB;
 class ScreeningController extends Controller
 {
     public function index() {
-        $data = Screening::with('registration.patient')->whereDate('created_at', Carbon::today())->where('is_ready_action', 0)->get();
+        $data = Screening::with('registration.patient', 'registration.service', 'registration.doctor')->whereDate('created_at', Carbon::today())->where('is_ready_action', 0)->get();
         return response()->json(['message' => 'success', 'data' => $data]);
+    }
+
+    public function getScreeningById(Request $request) {
+        $data = Screening::with('registration.patient', 'registration.service', 'registration.doctor')->where('id', $request->screening_id)->first();
+        return response()->json(['data' => $data]);
     }
 
     public function moveAction(Request $request) {
         try {
             DB::beginTransaction();
 
-            $screening = Screening::where('registration_id', $request->registration_id)->first();
+            $screening = Screening::with('registration.patient')->where('registration_id', $request->registration_id)->first();
             if (!$screening) throw new \Exception('Error screening not found');
 
             $screening->body_weight = $request->body_weight;
@@ -40,6 +46,14 @@ class ScreeningController extends Controller
             $screening->allergy_food = $request->allergy_food;
             $screening->is_ready_action = 1;
             $screening->save();
+
+            if ($request->blood_type && $request->blood_type != "") {
+                $patient = Patient::where('id', $screening->registration->patient->id)->first();
+                if (!$patient) throw new \Exception('Error patient not found');
+
+                $patient->blood_type = $request->blood_type;
+                $patient->save();
+            }
 
             DB::commit();
             return response()->json(['message' => 'Screening OK']);

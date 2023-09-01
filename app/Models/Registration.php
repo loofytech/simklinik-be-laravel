@@ -10,7 +10,7 @@ class Registration extends Model
     use HasFactory;
 
     public function patient() {
-        return $this->belongsTo(Patient::class, 'patient_id')->select(['id', 'medical_record', 'patient_name', 'patient_gender']);
+        return $this->belongsTo(Patient::class, 'patient_id')->select(['id', 'medical_record', 'patient_name', 'patient_gender', 'birth_date', 'blood_type']);
     }
 
     public function doctor() {

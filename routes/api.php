@@ -3,6 +3,7 @@
 use App\Http\Controllers\GeneralActionController;
 use App\Http\Controllers\GeneralInspectionController;
 use App\Http\Controllers\GeneralRecipeController;
+use App\Http\Controllers\PatientController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\ScreeningController;
 use App\Http\Controllers\SelectController;
@@ -25,6 +26,10 @@ Route::group(['prefix' => 'select'], function() {
     Route::get('doctor/{serviceId}', [SelectController::class, 'getDoctorByServiceId']);
 });
 
+Route::group(['prefix' => 'patient'], function() {
+    Route::get('/{medicalRecord}', [PatientController::class, 'getPatientByMedicalRecord']);
+});
+
 Route::group(['prefix' => 'user'], function() {
     Route::post('', [UserController::class, 'store']);
 });
@@ -38,6 +43,7 @@ Route::group(['prefix' => 'registration'], function() {
 Route::group(['prefix' => 'screening'], function() {
     Route::get('', [ScreeningController::class, 'index']);
     Route::put('', [ScreeningController::class, 'moveAction']);
+    Route::post('', [ScreeningController::class, 'getScreeningById']);
 });
 
 Route::group(['prefix' => 'inspection'], function() {
