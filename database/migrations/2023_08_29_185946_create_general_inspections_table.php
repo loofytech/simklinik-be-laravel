@@ -26,6 +26,7 @@ return new class extends Migration
             $table->text('abd')->nullable();
             $table->text('extremity')->nullable();
             $table->text('working_diagnostics')->nullable();
+            $table->string('diagnosis_code')->nullable();
             $table->string('diagnosis_name')->nullable();
             $table->text('physical_examination')->nullable();
             $table->text('etc')->nullable();

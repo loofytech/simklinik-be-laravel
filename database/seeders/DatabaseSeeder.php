@@ -26,7 +26,8 @@ class DatabaseSeeder extends Seeder
             ClinicRateSeeder::class,
             MedicineSeeder::class,
             UserSeeder::class,
-            DoctorScheduleSeeder::class
+            DoctorScheduleSeeder::class,
+            DiagnosesSeeder::class,
         ]);
     }
 }

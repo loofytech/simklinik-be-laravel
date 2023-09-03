@@ -9,7 +9,10 @@ use App\Http\Controllers\ScreeningController;
 use App\Http\Controllers\SelectController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
+use Stichoza\GoogleTranslate\GoogleTranslate;
 
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
@@ -42,6 +45,7 @@ Route::group(['prefix' => 'registration'], function() {
 
 Route::group(['prefix' => 'screening'], function() {
     Route::get('', [ScreeningController::class, 'index']);
+    Route::get('action', [ScreeningController::class, 'getActionByScreeningIsAction1']);
     Route::put('', [ScreeningController::class, 'moveAction']);
     Route::post('', [ScreeningController::class, 'getScreeningById']);
 });
@@ -60,3 +64,44 @@ Route::group(['prefix' => 'recipe'], function() {
     Route::post('', [GeneralRecipeController::class, 'index']);
     Route::put('', [GeneralRecipeController::class, 'update']);
 });
+
+// Route::get('hello', function() {
+//     $data = File::get('data_diagnosa_icd_10.json');
+//     $decode = json_decode($data);
+//     $dumpData = [];
+//     // $x = Http::get('https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=id&dt=t&q='. 'hello world');
+//     // $m = json_decode($x);
+//     // return $m[0][0][0];
+
+//     // $r = new GuzzleHttp\Client();
+
+//     if ($decode) {
+//         // for ($i = 0; $i < 500; $i++) {
+//         //     $x = $r->get('https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=id&dt=t&q=' . $decode->data[$i]->nama, ['timeout' => 3600, 'connect_timeout' => 5]);
+//         //     $m = json_decode($x->getBody(), true);
+    
+//         //     array_push($dumpData, [
+//         //         'diagnoses_code' => $decode->data[$i]->kode,
+//         //         'diagnoses_name_en' => $decode->data[$i]->nama,
+//         //         'diagnoses_name_id' => $m[0][0][0]
+//         //     ]);
+//         // }
+//         foreach ($decode->data as $key => $data) {
+//             // $x = $r->get('https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=id&dt=t&q='. $data->nama, [
+//             //     'http_errors' => false
+//             // ]);
+//             // $m = json_decode($x->getBody(), true);
+//             $x = Http::withOptions(['debug' => true])->get('https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=id&dt=t&q='. $data->nama);
+//             $m = json_decode($x);
+
+//             array_push($dumpData, [
+//                 'diagnoses_code' => $data->kode,
+//                 'diagnoses_name_en' => $data->nama,
+//                 'diagnoses_name_id' => $m[0][0][0]
+//             ]);
+//             // return response()->json($dumpData);
+//         }
+//     }
+
+//     return response()->json($dumpData);
+// });
